@@ -5,17 +5,16 @@
 template<class Type>
 class LinkedList : public LinkedListADT<Type>{
 public:
-    LinkedList(int capasity);
-    bool insert(Type type); 
-    bool remove(Type type) throw(DuplicateElementException);
+    LinkedList();
+    ~LinkedList();
+    void insert(Type type) throw(DuplicateElementException); 
+    bool remove(Type type) throw(ElementNotFoundException);
     LinkedListIterator<Type>& begin();
     LinkedListIterator<Type>& end();
-    Node* front();
- 
-    
-
-
-
+    Node<Type>* front();
+protected:
+    Node<Type>* head;
+    Node<Type>* last; 
 
 };
 
