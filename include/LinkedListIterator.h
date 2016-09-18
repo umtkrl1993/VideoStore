@@ -1,5 +1,5 @@
-#ifndef LINKED_LIST_ITERATOR_H
-#define LINKED_LIST_ITERATOR_H
+#ifndef _LinkedListIterator_H
+#define _LinkedListIterator_H
 #include"Node.h"
 
 template<class Type>

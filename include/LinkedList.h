@@ -1,5 +1,5 @@
-#ifndef LINKED_LIST_H
-#define LINKED_LIST_H
+#ifndef _LinkedList_H
+#define _LinkedList_H
 #include"LinkedListADT.h"
 
 template<class Type>

@@ -1,5 +1,5 @@
-#ifndef DUPLICATE_ELEMENT_EXCEPTION_H
-#define DUPLICATE_ELEMENT_EXCEPTION_H
+#ifndef _DuplicateElementException_H
+#define _DuplicateElementException_H
 #include<string>
 using std::string;
 
@@ -17,8 +17,5 @@ private:
 
 
 }
-
-
-
 
 #endif

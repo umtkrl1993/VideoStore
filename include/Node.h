@@ -1,5 +1,5 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef _Node_H
+#define _Node_H
 
 template<class Type>
 struct Node{

@@ -1,5 +1,5 @@
-#ifndef LINKED_LIST_ADT_H
-#define LINKED_LIST_ADT_H
+#ifndef _LinkedListADT_H
+#define _LinkedListADT_H
 #include"Node.h"
 #include"DuplicateElementException.h"
 #include"ElementNotFoundException.h"

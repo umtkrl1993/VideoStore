@@ -1,5 +1,5 @@
-#ifndef ELEMENT_NOT_FOUND_EXCEPTION_H
-#define ELEMENT_NOT_FOUND_EXCEPTION_H
+#ifndef _ElementNotFoundException_H
+#define _ElementNotFoundException_H
 #include<string>
 using std::string;
 
