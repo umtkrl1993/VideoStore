@@ -6,6 +6,7 @@ template<class Type>
 class LinkedList : public LinkedListADT<Type>{
 public:
     LinkedList();
+    LinkedList(LinkedList<Type>& list); // copy constructor
     ~LinkedList();
     void insert(Type type) throw(DuplicateElementException); 
     bool remove(Type type) throw(ElementNotFoundException);

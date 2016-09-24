@@ -1,8 +1,14 @@
-#include"../include/LinkedList.h"
+#include "../include/LinkedList.h"
 
 template<class Type>
 LinkedList<Type>::LinkedList():head(NULL),last(NULL){
  
+}
+
+template<class Type>
+LinkedList<Type>::LinkedList(LinkedList<Type>& list)
+{
+	
 }
 
 template<class Type>
@@ -11,7 +17,7 @@ LinkedList<Type>::~LinkedList(){
 }
 
 template<class Type>
-void LinkedList<Type>::insert(Type type)throw(DuplicateElementException){
+void LinkedList<Type>::insert( Type type )throw(DuplicateElementException){
 
 	Node<Type>* newNode = new Node<Type>;
         newNode->info = type;
@@ -42,7 +48,7 @@ void LinkedList<Type>::insert(Type type)throw(DuplicateElementException){
 }
 
 template<class Type>
-bool LinkedList<Type>::remove(Type type) throw(ElementNotFoundException){
+bool LinkedList<Type>::remove( Type type ) throw(ElementNotFoundException){
 
 	Node<Type>* current = head; 
 	Node<Type>* back = NULL;
@@ -89,14 +95,10 @@ LinkedListIterator<Type>& LinkedList<Type>::begin(){
 
 template<class Type>
 LinkedListIterator<Type>& LinkedList<Type>::end(){
-
-
 	return NULL;
 }
 
 template<class Type>
 Node<Type>* LinkedList<Type>::front(){
-
-
 	return head;
 }

@@ -1,7 +1,10 @@
 #ifndef _DuplicateElementException_H
 #define _DuplicateElementException_H
-#include<string>
+#include <string>
+#include <iostream>
+
 using std::string;
+using std::cout;
 
 namespace ExceptionClasses{
 
