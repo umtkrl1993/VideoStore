@@ -1,5 +1,6 @@
 #include "../include/LinkedList.h"
 
+
 template<class Type>
 LinkedList<Type>::LinkedList()
 {

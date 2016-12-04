@@ -48,7 +48,7 @@ LinkedListIterator<Type>& LinkedListIterator<Type>::operator++()
 template<class Type>
 LinkedListIterator<Type>& LinkedListIterator<Type>::operator++( int dummy )
 {
-	LinkedListIterator<int> it(*this);
+	LinkedListIterator<Type> it(*this);
 	if( current->next != 0 )
 	{
 		current = current->next;

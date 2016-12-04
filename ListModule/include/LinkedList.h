@@ -13,6 +13,7 @@ public:
     LinkedListIterator<Type> begin();
     LinkedListIterator<Type> end();
     Node<Type>* front();
+ //   static typedef LinkedListIterator<Type> iterator;
 
 protected:
     Node<Type>* head;

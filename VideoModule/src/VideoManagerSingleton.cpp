@@ -1,48 +1,87 @@
 #include "../include/VideoManagerSingleton.h"
 
-VideoManager VideoManager::uniqueInstance = NULL ;
 
-VideoManager::VideoManager(){
 
-	videoList = new LinkedList<Video>;
+VideoManager* VideoManager::uniqueInstance = NULL ;
 
-	for( LinkedListIterator it = videoList->begin(); it !=
+VideoManager::VideoManager()
+{
 
-	
 
 }
 
-
-VideoManager& VideoManager::getInstance(){
-
-	if( uniqueInstance == NULL ){
-
+/*
+ * There must be one object of this class because there is only one video list
+ */
+VideoManager* VideoManager::getInstance()
+{
+	videoMutex.lock();
+	if( uniqueInstance == NULL )
+	{
 		uniqueInstance = new VideoManager;
 	}	
+	videoMutex.unlock();
 	
 	return uniqueInstance;
 }
 
-bool VideoManagerSingleton::checkin( const Video& vObject ){
-	
-	
+/**
+ * @parameter a video object to checkin
+ * @return true if video is found in the list
+ * Actually comparing just video names and increasing the number of copies might be better !
+ */
+bool VideoManager::checkin( const Video& vObject )
+{
+	bool isVideoFound = false;
 
-	return true;
+	for( LinkedListIterator<Video> it = videoList.begin(); it != videoList.end(); it++ )
+	{
+		if( *it == vObject )
+		{
+			(*it).increaseNumberCopy();
+			isVideoFound = true;
+			break;
+		}
+	}
+	
+	return isVideoFound;
 }
 
-bool VideoManagerSingleton::checkout( const Video& vObject ){
+/**
+ * @parameter a video object to checkout
+ * @return true if video is found in the list and remaining number > 0
+ */
+bool VideoManager::checkout( const Video& vObject )
+{
+	bool isVideoFound = false;
 
+	for( LinkedListIterator<Video> it = videoList.begin(); it != videoList.end(); it++ )
+	{
+		if( *it == vObject )
+		{
+			Video& video = (*it);
 
-	return true;
+			if ( video.isVideoAvailable() == true )
+			{
+				isVideoFound == true;
+				video.decreaseNumberCopy();
+			}
+		}
+	}
+	return isVideoFound;
 }
 
-void VideoManagerSingleton::getParticularVideoInfo( const string& vName, Video* vPointer){
-
-	
+/*
+ * @parameter vName which is video name to get its info
+ * vPointer to fill with video info
+ */
+void VideoManager::getParticularVideoInfo( const string& vName, Video* vPointer)
+{
 
 }
 
-void VideoManagerSingleton::print(){
+void VideoManager::print()
+{
 
 
 

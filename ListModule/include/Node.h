@@ -4,7 +4,11 @@
 template<class Type>
 struct Node{
    Type info;
-   struct Node* next;   	
+   struct Node* next;
+   Node()
+   {
+
+   }
   ~Node()
 	{
 
