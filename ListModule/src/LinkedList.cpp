@@ -46,7 +46,7 @@ void LinkedList<Type>::insert( Type type ) throw ( DuplicateElementException )
 
 	if(head == NULL)
 	{
-		head = newNode;
+	    head = newNode;
 	    last = newNode;
 	}
 	else
