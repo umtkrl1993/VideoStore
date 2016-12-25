@@ -1,58 +1,72 @@
-#include "../include/Database.h"
+#include "../include/DatabaseVideoData.h"
+#include <iostream>
+#include <pthread.h>
+
+
+static pthread_mutex_t instanceMutex;
+
 
 DatabaseVideoData* DatabaseVideoData::uniqueInstance = NULL;
 
-
+using namespace std;
 
 DatabaseVideoData::DatabaseVideoData()
 {
-	isListCreated = false;
+
 }
 
 
 DatabaseVideoData* DatabaseVideoData::getInstance()
 {
-	databaseMutex.lock();
+	pthread_mutex_lock( &instanceMutex );
 	if( uniqueInstance == NULL )
 	{
 		uniqueInstance = new DatabaseVideoData;
 	}
-	databaseMutex.unlock();
+	pthread_mutex_unlock( &instanceMutex );
 
 	return uniqueInstance;
 }
 
-void DatabaseVideoData::getVideoData( LinkedList<Video>& movieList )
+void DatabaseVideoData::getVideoInfo( Video& video )
 {
-	int counter = 0;
-	int iNumberOfVideo = 0;
-	int numberOfCopy = 0;
-	std::string name = " ";
-	std::string star1 = " ";
-	std::string star2 = " ";
-	std::string producer = " ";
-	std::string director = " ";
-	std::fstream file;
-	std::string sNumberOfVideo;
+    try
+    {
+      pqxx::connection connectToVideoDB( "dbname=Video user=postgres password=123456 hostaddr=127.0.0.1 port=5432" );
 
-	file.open( filePath,std::fstream::in );
-	getline( file, numberOfVideo );
+       if( connectToVideoDB.is_open() )
+       {
+           std::string sql = "SELECT id, name, age from company";
+           pqxx::nontransaction N( connectToVideoDB );
+           pqxx::result R( N.exec( sql ) );
 
-	iNumberOfVideo = std::atoi( line.c_str() );
+           for ( pqxx::result::const_iterator c = R.begin(); c != R.end(); ++c )
+           {
+               cout << "1. Row column values Video Name , StarName1, StarName2 " <<endl;
+               cout<< "Name =" << c["id"].as<string>() <<endl;
+               cout<< "StarName1" <<c["name"].as<string>() <<endl;
+               cout<< "StarName2" <<c["age"].as<string>() <<endl;
 
-	while( counter < numberOfVideo )
-	{
-		getline( file, name );
-		getline( file, star1 );
-		getline( file, star2 );
-		getline( file, producer );
-		getline( file, director );
-		getline( file, numberOfCopy );
-		numberOfCopy = std::atoi( numberOfCopy.c_str() );
-		Video v( name, star1, star2, producer, director, numberOfCopy );
-		movieList.insert(v);
-		counter++;
-	}
+           }
+           connectToVideoDB.disconnect();
+       }
+
+       else
+       {
+
+       }
+    }
+
+    catch( std::exception &e )
+    {
+        cout << e.what();
+    }
+
+}
+
+
+void DatabaseVideoData::saveVideoInfo( const Video& videoData )
+{
 
 
 }

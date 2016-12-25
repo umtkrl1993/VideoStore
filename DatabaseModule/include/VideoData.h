@@ -1,14 +1,15 @@
 #ifndef _VideoData_H
 #define _VideoData_H
 
-#include "../../ListModule/include/LinkedList.h"
+#include "../../VideoModule/include/Video.h"
 
 
 class VideoData
 {
 
 public:
-    virtual void getVideoData( LinkedList<Video>& videoList ) = 0;
+    virtual void getVideoInfo( Video& videoData ) = 0;
+    virtual void saveVideoInfo( const Video& videoData ) = 0;
 
 };
 

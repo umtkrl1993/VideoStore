@@ -1,23 +1,20 @@
 #ifndef _DatabaseAPI_H
 #define _DatabaseAPI_H
-#include <fstream>
 #include <mutex>
 #include "VideoData.h"
-
-
+#include <pqxx/pqxx>
 
 class DatabaseVideoData : public VideoData
 {
 	public:
-	~DatabaseVideoData();
-	static DatabaseVideoData* getInstance();
-	void getVideoData( LinkedList<Video>& );
+		~DatabaseVideoData();
+		static DatabaseVideoData* getInstance();
+		virtual void getVideoData( Video& video );
+		virtual void saveVideoData( const Video& video );
 
 	private:
-	DatabaseVideoData();
-	DatabaseVideoData* uniqueInstance;
-	bool isListCreated;
-	static std::mutex databaseMutex;
+		DatabaseVideoData();
+		static DatabaseVideoData* uniqueInstance;
 
 
 };
