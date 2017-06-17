@@ -13,8 +13,8 @@ public:
     static VideoManager* getInstance();
     bool checkin( const Video& vObject );
     bool checkout( const Video& vObject );
-	void getParticularVideoInfo( const string& vName, Video* vObject );
-	void print();
+    void getParticularVideoInfo( const string& vName, Video* vObject );
+    void print();
 
 private:
     VideoManager();
