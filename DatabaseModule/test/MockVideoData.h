@@ -4,12 +4,11 @@
 
 typedef struct
 {
-
 std::string m_name;
-std::string m_start1;
-std::string m_start2;
+std::string m_star1;
+std::string m_star2;
 std::string m_producer;
-int m_copyNumber
+int m_copyNumber;
 }Video;
 
 class VideoData

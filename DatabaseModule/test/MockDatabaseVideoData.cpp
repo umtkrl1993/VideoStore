@@ -8,7 +8,6 @@ static pthread_mutex_t instanceMutex;
 
 DatabaseVideoData* DatabaseVideoData::uniqueInstance = NULL;
 
-using namespace std;
 
 DatabaseVideoData::DatabaseVideoData()
 {
@@ -17,8 +16,7 @@ DatabaseVideoData::DatabaseVideoData()
 
 DatabaseVideoData::~DatabaseVideoData()
 {
-	delete connectionOB;
-
+	delete connectionOBJ;
 }
 
 DatabaseVideoData* DatabaseVideoData::getInstance()
@@ -39,14 +37,15 @@ void DatabaseVideoData::connectToDB( const std::string& dbName, const std::strin
 
 	try
 	{
-	    connectionOB = new pqxx::connection(  "dbname= '.dbName.' user='.user.' password='.password.' hostaddr='.hostaddr.' port='.port.'" );
+	    std::cout<< "Trying to connect to database\n";
+	    connectionOBJ = new pqxx::connection(  "dbname='"+dbName+"'  user='"+user+"'  password='"+password+"'  hostaddr='"+host+"'  port='"+port+"'" );
 	
 	    std::cout<< "Connection is successful\n";
 	}
 
 	catch( std::exception& e )
 	{
-	    
+	    std::cout<<e.what()<<std::endl;
 	}
 
 	
@@ -90,10 +89,13 @@ void DatabaseVideoData::getVideoInfo( Video& video )
 
   */
 
-	if( connectionOB != NULL )
+	if( connectionOBJ != NULL )
 	{
-
+		std::string sql = "SELECT videoname, videostarname1, videostarname2, videoproducername, videocopynumber from video";
+		pqxx::nontransaction N(*connectionOBJ);
+		pqxx::result R( N.exec( sql ) );
 		
+			
 	}
 
 }
@@ -101,6 +103,27 @@ void DatabaseVideoData::getVideoInfo( Video& video )
 
 void DatabaseVideoData::saveVideoInfo( const Video& videoData )
 {
+	if( connectionOBJ != NULL )
+	{
+		std::string name = videoData.m_name;
+		std::string star1 = videoData.m_star1;
+		std::string star2 = videoData.m_star2;
+		std::string producer = videoData.m_producer;
+		int copyNumber = videoData.m_copyNumber;
+		std::string sCopyNumber = std::to_string(copyNumber);
 
+		std::string sql = "INSERT INTO video VALUES ('"+name+"', '"+star1+"', '"+star2+"', '"+producer+"', '"+sCopyNumber+"') ";
+	
+		try
+		{
+			pqxx::work W(*connectionOBJ);
+			W.exec(sql);
+			W.commit();
+		}
 
+		catch( std::exception& e)
+		{
+			std::cout<< e.what()<<std::endl;
+		}
+	}
 }
