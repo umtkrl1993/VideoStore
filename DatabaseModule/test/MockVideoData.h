@@ -15,11 +15,10 @@ class VideoData
 {
 
 public:
-    virtual void getVideoInfo( Video& videoData ) = 0;
+    virtual void getVideoInfo( Video& videoData, const std::string& key ) = 0;
     virtual void saveVideoInfo( const Video& videoData ) = 0;
 
 };
-
 
 
 #endif

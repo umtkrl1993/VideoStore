@@ -21,8 +21,24 @@ void* insertVideoToDB( void* args )
 	db->saveVideoInfo( videoInfo );
 }
 
+static void printVideoInfo( const Video& videoInfo )
+{
+	
+	for( int i = 100; i > 0; --i )
+	{
+			std::cout<<"*";
+	}
+	
+	std::cout<<std::endl;
+	std::cout<< "Video Name is " << videoInfo.m_name << std::endl;
+	std::cout<< "Video Name is " << videoInfo.m_star1 << std::endl;
+	std::cout<< "Video Name is " << videoInfo.m_star2 << std::endl;
 
-
+	for( int i = 100; i > 0; --i )
+	{
+			std::cout<<"*";
+	}
+}
 int main()
 {
 	
@@ -47,10 +63,15 @@ int main()
 	pthread_t thread;
 	ThreadArgs arg = { "Demo 2","udoh", "vesely","obradovic",1,database};
 
-	int rc = pthread_create(&thread, NULL, insertVideoToDB, (void*)&arg );
+//	int rc = pthread_create(&thread, NULL, insertVideoToDB, (void*)&arg );
 
-	pthread_join( thread , NULL ); 
+//	pthread_join( thread , NULL ); 
+//
+	Video videoInfo1;
+	std::string key = "Demo Video";
+	database->getVideoInfo( videoInfo1, key );
+	printVideoInfo( videoInfo1 );
+
 	
-
 	return 0;
 }

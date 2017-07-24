@@ -2,7 +2,7 @@
 #include <iostream>
 #include <pthread.h>
 
-
+using namespace std;
 static pthread_mutex_t instanceMutex;
 
 
@@ -47,33 +47,34 @@ void DatabaseVideoData::connectToDB( const std::string& dbName, const std::strin
 	{
 	    std::cout<<e.what()<<std::endl;
 	}
-
 	
 }
  
-void DatabaseVideoData::getVideoInfo( Video& video )
+void DatabaseVideoData::getVideoInfo( Video& video, const std::string& key )
 {
-
-   /**
     try
     {
-      pqxx::connection connectToVideoDB( "dbname=Video user=postgres password=123456 hostaddr=127.0.0.1 port=5432" );
-
-       if( connectToVideoDB.is_open() )
+       if( connectionOBJ->is_open() )
        {
-           std::string sql = "SELECT id, name, age from company";
-           pqxx::nontransaction N( connectToVideoDB );
+           std::string sql = "SELECT *from video where videoname='"+key+"' ";
+           pqxx::nontransaction N( *connectionOBJ );
            pqxx::result R( N.exec( sql ) );
 
            for ( pqxx::result::const_iterator c = R.begin(); c != R.end(); ++c )
            {
                cout << "1. Row column values Video Name , StarName1, StarName2 " <<endl;
-               cout<< "Name =" << c["id"].as<string>() <<endl;
-               cout<< "StarName1" <<c["name"].as<string>() <<endl;
-               cout<< "StarName2" <<c["age"].as<string>() <<endl;
+			   video.m_name = c["videoname"].as<string>();
+			   video.m_star1 = c["videostarname1"].as<string>();
+			   video.m_star2 = c["videostarname2"].as<string>();
+			   video.m_producer = c["videoproducername"].as<string>();
+			   video.m_copyNumber = c["videocopynumber"].as<int>();
+
+              // cout<< "Video Name =" << c["videoname"].as<string>() <<endl;
+              // cout<< "StarName1" <<c["videostarname1"].as<string>() <<endl;
+              // cout<< "StarName2" <<c["videostarname2"].as<string>() <<endl;
 
            }
-           connectToVideoDB.disconnect();
+           connectionOBJ->disconnect();
        }
 
        else
@@ -84,19 +85,8 @@ void DatabaseVideoData::getVideoInfo( Video& video )
 
     catch( std::exception &e )
     {
-        cout << e.what();
+			std::cout << e.what();
     }
-
-  */
-
-	if( connectionOBJ != NULL )
-	{
-		std::string sql = "SELECT videoname, videostarname1, videostarname2, videoproducername, videocopynumber from video";
-		pqxx::nontransaction N(*connectionOBJ);
-		pqxx::result R( N.exec( sql ) );
-		
-			
-	}
 
 }
 

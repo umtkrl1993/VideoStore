@@ -1,7 +1,6 @@
 
 INCLUDE_PATH=-I /home/umit/libpqxx-4.0/include/
 CFLAGS=-std=c++11 \
-	-Wall
 	
 target: databaseLibrary
 	g++ $(CFLAGS) $(INCLUDE_PATH) Test.cpp MockDatabaseVideoData.o -lpqxx -lpq -lpthread -o exe

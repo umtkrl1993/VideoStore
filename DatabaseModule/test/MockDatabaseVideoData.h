@@ -10,7 +10,7 @@ class DatabaseVideoData : public VideoData
 		~DatabaseVideoData();
 		static DatabaseVideoData* getInstance();
 		virtual void connectToDB( const std::string& dbName, const std::string &user, const std::string& password, const std::string& host, const std::string& port );
-		virtual void getVideoInfo( Video& video );
+		virtual void getVideoInfo( Video& video, const std::string& key );
 		virtual void saveVideoInfo( const Video& video );
 
 	private:
