@@ -8,7 +8,6 @@ PostgresDatabaseInterface::PostgresDatabaseInterface()
 
 }
 
-
 /*
  *When DatabaseAndUserInfo is provided to constructor it tries to connect to db
  */
@@ -31,12 +30,9 @@ void PostgresDatabaseInterface::connectToDB( const DatabaseAndUserInfo& info )
 		std::string host = info.m_host;
 		std::string port = info.m_port;
 
-
 		try
 		{
-		
 				connectionOBJ = new pqxx::connection( "dbname='"+dbname+"'  user='"+username+"'  password='"+password+"'  hostaddr='"+host+"'  port='"+port+"'" );
-
 		}
 
 		catch( std::exception& e )
@@ -109,7 +105,7 @@ void PostgresDatabaseInterface::getVideoInformation( VideoInfo& info, const std:
 
 		else
 		{
-
+			std::cout<< "There is no database connection\n";
 		}
 	
 }
