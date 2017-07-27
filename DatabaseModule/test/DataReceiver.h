@@ -7,7 +7,7 @@
 #include<sys/shm.h>
 #include"VideoDataType.h"
 
-key_t key = 5678;
+key_t key = 56780;
 Video* shm;
 int shmid;
 

@@ -10,15 +10,15 @@
 
 
 
-#define SHMSZ 4096
+#define SHMSZ 134217728
 
-key_t key = 5678;
+key_t key = 56780;
 Video* shm = NULL;
 int shmid;
 
 void createSharedMemory();
 
-void write( const Video* video );
+void write( Video* video );
 
 
 
