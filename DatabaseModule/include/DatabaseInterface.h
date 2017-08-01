@@ -5,8 +5,8 @@
 class DatabaseInterface
 {
 		virtual void connectToDB( const DatabaseAndUserInfo& info ) = 0;
-		virtual void saveVideoInformation( const VideoInfo& info ) = 0 const;
-		virtual void getVideoInformation( VideoInfo& info, const std::string& key ) = 0 const;
+		virtual void saveVideoInformation( const VideoInfo& info ) const = 0;
+		virtual void getVideoInformation( VideoInfo& info, const std::string& key ) const = 0 ;
 };
 
 
